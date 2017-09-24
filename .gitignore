@@ -1,0 +1,7 @@
+# IDE config
+.idea/
+test-candidate.iml
+
+# built classes
+bin/
+!bin/.keep
