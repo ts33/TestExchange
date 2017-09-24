@@ -44,13 +44,15 @@ public class CustomerControllerTest {
         BigDecimal cash = customerController.getCustomersTotalCash();
 
         //Make sure that no customers have pending transactions
-        assert(customerController.allCustomersSettled());
+        assertEquals(true, customerController.allCustomersSettled());
 
         //Make sure that no customers have any derivatives that have negative units
-        assert(customerController.allCustomersPositiveDerivative());
+        assertEquals(true, customerController.allCustomersPositiveDerivative());
 
         //Make sure that the math makes sense
         assertEquals(0, totalAum.compareTo(totalDerivatives.add(cash)));
+        System.out.println(totalAum.setScale(0, BigDecimal.ROUND_HALF_UP));
+        System.out.println(BigDecimal.valueOf(13646));
         assertEquals(0, totalAum.setScale(0, BigDecimal.ROUND_HALF_UP).compareTo(BigDecimal.valueOf(13646)));
 
         System.out.println(totalAum);
