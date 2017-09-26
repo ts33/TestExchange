@@ -57,6 +57,8 @@ public class SaxosController {
 
     public SaxosReceipt parseOrder(Order order) throws Exception{
         BigDecimal unit = order.getUnits().abs();
+        // unit.signum() : -1, 0, or 1 as the value of this BigDecimal is negative, zero, or positive.
+        // unit.scale() : if negative, signifies that the number is large, i.e. -3 = unscaled * 1000
         if (unit.signum() == 0 || unit.scale() <= 0 || unit.stripTrailingZeros().scale() <= 0){
             BigDecimal value = orderMap.get(order.getIdentifier());
             BigDecimal totalAmount = (value.multiply(unit)).subtract(transactionCost);

@@ -134,10 +134,14 @@ public class Customer {
         if (exists){
             Order x = transactions.get(index);
             completedTransactions.add(x);
+            // we might need to compare the absolute value of units instead
             int result = x.getUnits().compareTo(order.getUnits());
+            // if x is greater than order (argument), 1 is returned
             if (result == 1){
+                System.out.println("transaction kept");
                 transactions.get(index).setUnits(x.getUnits().subtract(order.getUnits()));
             } else {
+                // if units in the order is larger, we should cap the units to those in the original order only.
                 transactions.remove(index);
             }
 
@@ -148,6 +152,7 @@ public class Customer {
                     i = derivatives.size();
                 }
             }
+            // this works for sell orders (-ve units). for buy orders, we should subtract from cash instead
             BigDecimal newCash = order.getUnits().abs().multiply(order.getValue());
             addCash(newCash);
         } else {
